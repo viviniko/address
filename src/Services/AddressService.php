@@ -121,7 +121,7 @@ class AddressService implements AddressServiceInterface
         $address = new Address();
         $location = Agent::location();
         $country = $this->countries->findBy('code', $location->iso_code)->first();
-        if (! $country) {
+        if ($country) {
             $address->country_id = $country->id;
         } else {
             $address->country_id = data_get($this->countries->all()->first(), 'id');
