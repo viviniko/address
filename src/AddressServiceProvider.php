@@ -4,7 +4,6 @@ namespace Viviniko\Address;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Viviniko\Address\Console\Commands\AddressTableCommand;
-use Viviniko\Address\Console\CountrySeedCommand;
 
 class AddressServiceProvider extends BaseServiceProvider
 {
@@ -29,7 +28,6 @@ class AddressServiceProvider extends BaseServiceProvider
 
         // Register commands
         $this->commands('command.address.table');
-        $this->commands('command.country.seed');
     }
 
     /**
@@ -51,10 +49,6 @@ class AddressServiceProvider extends BaseServiceProvider
     public function registerRepositories()
     {
         $this->app->singleton(
-            \Viviniko\Address\Repositories\Country\CountryRepository::class,
-            \Viviniko\Address\Repositories\Country\EloquentCountry::class
-        );
-        $this->app->singleton(
             \Viviniko\Address\Repositories\Address\AddressRepository::class,
             \Viviniko\Address\Repositories\Address\EloquentAddress::class
         );
@@ -70,8 +64,6 @@ class AddressServiceProvider extends BaseServiceProvider
         $this->app->singleton('command.address.table', function ($app) {
             return new AddressTableCommand($app['files'], $app['composer']);
         });
-
-        $this->app->singleton('command.country.seed', CountrySeedCommand::class);
     }
 
     /**
@@ -83,7 +75,7 @@ class AddressServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton(
             \Viviniko\Address\Contracts\AddressService::class,
-            \Viviniko\Address\Services\AddressService::class
+            \Viviniko\Address\Services\AddressServiceImpl::class
         );
     }
 

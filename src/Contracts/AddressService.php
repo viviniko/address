@@ -41,21 +41,6 @@ interface AddressService
     public function delete($id);
 
     /**
-     * Get all countries.
-     *
-     * @return mixed
-     */
-    public function getCountries();
-
-    /**
-     * Get country.
-     *
-     * @param $code
-     * @return mixed
-     */
-    public function findCountryByCode($code);
-
-    /**
      * Has default address.
      *
      * @param $addressable

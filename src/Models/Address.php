@@ -2,6 +2,7 @@
 
 namespace Viviniko\Address\Models;
 
+use Illuminate\Support\Facades\Config;
 use Viviniko\Support\Database\Eloquent\Model;
 
 class Address extends Model
@@ -25,7 +26,7 @@ class Address extends Model
 
     public function country()
     {
-        return $this->belongsTo(Country::class, 'country_id');
+        return $this->belongsTo(Config::get('country.country'), 'country_id');
     }
 
     /**

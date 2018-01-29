@@ -5,16 +5,16 @@ namespace Viviniko\Address\Services;
 use Viviniko\Address\Contracts\AddressService as AddressServiceInterface;
 use Viviniko\Address\Models\Address;
 use Viviniko\Address\Repositories\Address\AddressRepository;
-use Viviniko\Address\Repositories\Country\CountryRepository;
 use Viviniko\Agent\Facades\Agent;
+use Viviniko\Country\Contracts\CountryService;
 use Viviniko\Support\Database\Eloquent\Model;
 
-class AddressService implements AddressServiceInterface
+class AddressServiceImpl implements AddressServiceInterface
 {
     /**
-     * @var \Viviniko\Address\Repositories\Country\CountryRepository
+     * @var \Viviniko\Country\Contracts\CountryService
      */
-    protected $countries;
+    protected $countryService;
 
     /**
      * @var \Viviniko\Address\Repositories\Address\AddressRepository
@@ -23,12 +23,12 @@ class AddressService implements AddressServiceInterface
 
     /**
      * AddressService constructor.
-     * @param \Viviniko\Address\Repositories\Country\CountryRepository $countries
+     * @param \Viviniko\Country\Contracts\CountryService $countryService
      * @param \Viviniko\Address\Repositories\Address\AddressRepository $addresses
      */
-    public function __construct(CountryRepository $countries, AddressRepository $addresses)
+    public function __construct(CountryService $countryService, AddressRepository $addresses)
     {
-        $this->countries = $countries;
+        $this->countryService = $countryService;
         $this->addresses = $addresses;
     }
 
@@ -87,16 +87,6 @@ class AddressService implements AddressServiceInterface
     }
 
     /**
-     * Get all countries.
-     *
-     * @return mixed
-     */
-    public function getCountries()
-    {
-        return $this->countries->all();
-    }
-
-    /**
      * Get default address.
      *
      * @param Model $addressable
@@ -120,11 +110,11 @@ class AddressService implements AddressServiceInterface
     {
         $address = new Address();
         $location = Agent::location();
-        $country = $this->countries->findBy('code', $location->iso_code)->first();
+        $country = $this->countryService->findByCode($location->iso_code);
         if ($country) {
             $address->country_id = $country->id;
         } else {
-            $address->country_id = data_get($this->countries->all()->first(), 'id');
+            $address->country_id = data_get($this->countryService->getCountries()->first(), 'id');
         }
 
         return $address;
@@ -167,16 +157,5 @@ class AddressService implements AddressServiceInterface
             'addressable_id' => $addressable->id,
             'is_default' => true
         ]);
-    }
-
-    /**
-     * Get country.
-     *
-     * @param $code
-     * @return mixed
-     */
-    public function findCountryByCode($code)
-    {
-        return $this->countries->findByCode($code);
     }
 }

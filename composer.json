@@ -13,6 +13,7 @@
     "require": {
         "php": ">=7.0",
         "viviniko/agent": "dev-master",
+        "viviniko/country": "dev-master",
         "viviniko/support": "dev-master"
     },
     "autoload": {
