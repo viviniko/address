@@ -14,6 +14,14 @@ interface AddressService
     public function search($query);
 
     /**
+     * Find address.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function find($id);
+
+    /**
      * Create new Address.
      *
      * @param $addressable

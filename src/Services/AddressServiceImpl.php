@@ -44,6 +44,11 @@ class AddressServiceImpl implements AddressServiceInterface
         return $this->addresses->search($query);
     }
 
+    public function find($id)
+    {
+        return $this->addresses->find($id);
+    }
+
     /**
      * Save a new address in repository
      *

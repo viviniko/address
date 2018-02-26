@@ -4,6 +4,8 @@ namespace Viviniko\Address\Repositories\Address;
 
 interface AddressRepository
 {
+    public function find($id);
+
     public function create(array $data);
 
     public function update($id, array $data);
