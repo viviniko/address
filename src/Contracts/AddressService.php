@@ -49,6 +49,25 @@ interface AddressService
     public function delete($id);
 
     /**
+     * Save a new address in repository
+     *
+     * @param array $data
+     * @param Model $addressable
+     *
+     * @return mixed
+     */
+    public function createIfNotExists($addressable, array $data);
+
+    /**
+     * Get exists address.
+     *
+     * @param $addressable
+     * @param array $data
+     * @return mixed
+     */
+    public function getExistsAddress($addressable, array $data);
+
+    /**
      * Has default address.
      *
      * @param $addressable

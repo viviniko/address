@@ -6,6 +6,14 @@ interface AddressRepository
 {
     public function find($id);
 
+    /**
+     * List addresses.
+     *
+     * @param mixed $addressable
+     * @return \Illuminate\Support\Collection
+     */
+    public function lists($addressable);
+
     public function create(array $data);
 
     public function update($id, array $data);

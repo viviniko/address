@@ -92,6 +92,46 @@ class AddressServiceImpl implements AddressServiceInterface
     }
 
     /**
+     * Save a new address in repository
+     *
+     * @param array $data
+     * @param Model $addressable
+     *
+     * @return mixed
+     */
+    public function createIfNotExists($addressable, array $data)
+    {
+        return $this->getExistsAddress($addressable, $data) ?? $this->create($addressable, $data);
+    }
+
+    /**
+     * Get exists address.
+     *
+     * @param $addressable
+     * @param array $data
+     * @return mixed
+     */
+    public function getExistsAddress($addressable, array $data)
+    {
+        $address = null;
+        $this->addresses->lists($addressable)->each(function ($item) use (&$address, $data) {
+            unset($data['is_default'], $data['addressable_type'], $data['addressable_id']);
+            foreach ($data as $column => $value) {
+                if ($column == 'country_id') {
+                    $value = (int) $value;
+                }
+                if (in_array($column, $item->getFillable()) && $item->$column != $value) {
+                    return ; // continue each loop
+                }
+            }
+            $address = $item;
+            return false; // break each loop
+        });
+
+        return $address;
+    }
+
+    /**
      * Get default address.
      *
      * @param Model $addressable
