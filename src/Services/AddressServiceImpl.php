@@ -203,4 +203,15 @@ class AddressServiceImpl implements AddressServiceInterface
             'is_default' => true
         ]);
     }
+
+    /**
+     * Get addresses.
+     *
+     * @param $addressable
+     * @return mixed
+     */
+    public function getAddresses($addressable)
+    {
+        return $this->addresses->lists($addressable);
+    }
 }

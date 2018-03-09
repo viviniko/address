@@ -98,4 +98,12 @@ interface AddressService
      * @return mixed
      */
     public function guessClientAddress();
+
+    /**
+     * Get addresses.
+     *
+     * @param $addressable
+     * @return mixed
+     */
+    public function getAddresses($addressable);
 }
