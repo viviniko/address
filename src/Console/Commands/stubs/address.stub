@@ -35,10 +35,13 @@ class CreateAddressTable extends Migration
             $table->string('street1');
             $table->string('street2')->nullable();
             $table->string('city_name', 120);
+            $table->string('state', 2)->nullable();
             $table->string('state_name', 120)->nullable();
-            $table->unsignedInteger('country_id');
+            $table->string('country', 2);
+            $table->string('country_name', 120);
             $table->string('phone', 32)->nullable();
             $table->string('postal_code', 20);
+            $table->string('type', 32)->default('Shipping');
             $table->boolean('is_default')->default(false);
             $table->timestamps();
         });

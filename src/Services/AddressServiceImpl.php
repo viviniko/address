@@ -117,9 +117,6 @@ class AddressServiceImpl implements AddressServiceInterface
         $this->addresses->lists($addressable)->each(function ($item) use (&$address, $data) {
             unset($data['is_default'], $data['addressable_type'], $data['addressable_id']);
             foreach ($data as $column => $value) {
-                if ($column == 'country_id') {
-                    $value = (int) $value;
-                }
                 if (in_array($column, $item->getFillable()) && $item->$column != $value) {
                     return ; // continue each loop
                 }
@@ -157,9 +154,9 @@ class AddressServiceImpl implements AddressServiceInterface
         $location = Agent::location();
         $country = $this->countryService->findByCode($location->iso_code);
         if ($country) {
-            $address->country_id = $country->id;
+            $address->country = $location->iso_code;
         } else {
-            $address->country_id = data_get($this->countryService->getCountries()->first(), 'id');
+            $address->country = data_get($this->countryService->getCountries()->first(), 'code');
         }
 
         return $address;

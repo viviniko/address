@@ -11,23 +11,9 @@ class Address extends Model
 
     protected $fillable = [
         'addressable_type', 'addressable_id', 'firstname', 'lastname',
-        'street1', 'street2', 'city_name', 'state_name', 'country_id', 'postal_code', 'phone', 'is_default'
+        'street1', 'street2', 'city_name', 'state', 'state_name', 'country', 'country_name', 'postal_code', 'phone',
+        'type', 'is_default'
     ];
-
-    public function getCountryCodeAttribute()
-    {
-        return data_get($this->country, 'code');
-    }
-
-    public function getCountryNameAttribute()
-    {
-        return data_get($this->country, 'name');
-    }
-
-    public function country()
-    {
-        return $this->belongsTo(Config::get('country.country'), 'country_id');
-    }
 
     /**
      * Get all of the owning addressable model.
