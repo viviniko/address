@@ -12,9 +12,9 @@
     ],
     "require": {
         "php": ">=7.0",
-        "viviniko/agent": "dev-master",
-        "viviniko/country": "dev-master",
-        "viviniko/support": "dev-master"
+        "viviniko/agent": "^v1.0",
+        "viviniko/country": "^v1.0",
+        "viviniko/support": "^v1.0"
     },
     "autoload": {
         "psr-0": {
