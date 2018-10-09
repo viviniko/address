@@ -2,17 +2,16 @@
 
 namespace Viviniko\Address\Services;
 
-use Viviniko\Address\Contracts\AddressService as AddressServiceInterface;
 use Viviniko\Address\Models\Address;
 use Viviniko\Address\Repositories\Address\AddressRepository;
 use Viviniko\Agent\Facades\Agent;
-use Viviniko\Country\Contracts\CountryService;
+use Viviniko\Country\Services\CountryService;
 use Viviniko\Support\Database\Eloquent\Model;
 
-class AddressServiceImpl implements AddressServiceInterface
+class AddressServiceImpl implements AddressService
 {
     /**
-     * @var \Viviniko\Country\Contracts\CountryService
+     * @var \Viviniko\Country\Services\CountryService
      */
     protected $countryService;
 
@@ -23,7 +22,7 @@ class AddressServiceImpl implements AddressServiceInterface
 
     /**
      * AddressService constructor.
-     * @param \Viviniko\Country\Contracts\CountryService $countryService
+     * @param \Viviniko\Country\Services\CountryService $countryService
      * @param \Viviniko\Address\Repositories\Address\AddressRepository $addresses
      */
     public function __construct(CountryService $countryService, AddressRepository $addresses)
@@ -32,16 +31,9 @@ class AddressServiceImpl implements AddressServiceInterface
         $this->addresses = $addresses;
     }
 
-    /**
-     * Paginate addresses.
-     *
-     * @param mixed $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function search($query)
+    public function paginate($perPage = null, $searchName = 'search', $search = null, $order = null)
     {
-        return $this->addresses->search($query);
+        return $this->addresses->paginate($perPage, $searchName, $search, $order);
     }
 
     public function find($id)
@@ -140,7 +132,7 @@ class AddressServiceImpl implements AddressServiceInterface
             'addressable_type' => $addressable->getMorphClass(),
             'addressable_id' => $addressable->id,
             'is_default' => true,
-        ])->first();
+        ]);
     }
 
     /**
@@ -152,7 +144,7 @@ class AddressServiceImpl implements AddressServiceInterface
     {
         $address = new Address();
         $location = Agent::location();
-        $country = $this->countryService->findByCode($location->iso_code);
+        $country = $this->countryService->getCountryByCode($location->iso_code);
         if ($country) {
             $address->country = $location->iso_code;
         } else {

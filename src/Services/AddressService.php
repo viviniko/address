@@ -1,17 +1,19 @@
 <?php
 
-namespace Viviniko\Address\Contracts;
+namespace Viviniko\Address\Services;
 
 interface AddressService
 {
     /**
-     * Paginate addresses.
+     * Paginate the given query into a simple paginator.
      *
-     * @param mixed $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param null $perPage
+     * @param string $searchName
+     * @param null $search
+     * @param null $order
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function search($query);
+    public function paginate($perPage = null, $searchName = 'search', $search = null, $order = null);
 
     /**
      * Find address.

@@ -1,18 +1,22 @@
 <?php
 
-namespace Viviniko\Address\Repositories\Address;
+namespace Viviniko\Address\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use Viviniko\Repository\SimpleRepository;
+use Illuminate\Support\Facades\Config;
+use Viviniko\Repository\EloquentRepository;
 
-class EloquentAddress extends SimpleRepository implements AddressRepository
+class EloquentAddress extends EloquentRepository implements AddressRepository
 {
-    protected $modelConfigKey = 'address.address';
-
-    protected $fieldSearchable = [
+    protected $searchRules = [
         'addressable_type',
         'addressable_id',
     ];
+
+    public function __construct()
+    {
+        parent::__construct(Config::get('address.address'));
+    }
 
     /**
      * List addresses.

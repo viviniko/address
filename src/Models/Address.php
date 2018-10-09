@@ -2,7 +2,6 @@
 
 namespace Viviniko\Address\Models;
 
-use Illuminate\Support\Facades\Config;
 use Viviniko\Support\Database\Eloquent\Model;
 
 class Address extends Model

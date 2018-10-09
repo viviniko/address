@@ -49,8 +49,8 @@ class AddressServiceProvider extends BaseServiceProvider
     public function registerRepositories()
     {
         $this->app->singleton(
-            \Viviniko\Address\Repositories\Address\AddressRepository::class,
-            \Viviniko\Address\Repositories\Address\EloquentAddress::class
+            \Viviniko\Address\Repositories\AddressRepository::class,
+            \Viviniko\Address\Repositories\EloquentAddress::class
         );
     }
 
@@ -74,7 +74,7 @@ class AddressServiceProvider extends BaseServiceProvider
     protected function registerAddressService()
     {
         $this->app->singleton(
-            \Viviniko\Address\Contracts\AddressService::class,
+            \Viviniko\Address\Services\AddressService::class,
             \Viviniko\Address\Services\AddressServiceImpl::class
         );
     }
@@ -87,7 +87,7 @@ class AddressServiceProvider extends BaseServiceProvider
     public function provides()
     {
         return [
-            \Viviniko\Address\Contracts\AddressService::class
+            \Viviniko\Address\Services\AddressService::class
         ];
     }
 }
