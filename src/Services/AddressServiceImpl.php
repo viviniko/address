@@ -6,6 +6,7 @@ use Viviniko\Address\Models\Address;
 use Viviniko\Address\Repositories\AddressRepository;
 use Viviniko\Agent\Facades\Agent;
 use Viviniko\Country\Services\CountryService;
+use Viviniko\Repository\SearchPageRequest;
 use Viviniko\Support\Database\Eloquent\Model;
 
 class AddressServiceImpl implements AddressService
@@ -31,9 +32,16 @@ class AddressServiceImpl implements AddressService
         $this->addresses = $addresses;
     }
 
-    public function paginate($perPage = null, $searchName = 'search', $search = null, $order = null)
+    public function paginate($perPage = null, $wheres = [], $orders = [])
     {
-        return $this->addresses->paginate($perPage, $searchName, $search, $order);
+        return $this->addresses->search(
+            SearchPageRequest::create($perPage, $wheres = [], $orders = [])
+                ->rules([
+                    'addressable_type',
+                    'addressable_id',
+                ])
+                ->request(request(), 'search')
+        );
     }
 
     public function find($id)

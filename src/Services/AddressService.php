@@ -8,12 +8,11 @@ interface AddressService
      * Paginate the given query into a simple paginator.
      *
      * @param null $perPage
-     * @param string $searchName
-     * @param null $search
-     * @param null $order
+     * @param array $wheres
+     * @param array $orders
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($perPage = null, $searchName = 'search', $search = null, $order = null);
+    public function paginate($perPage = null, $wheres = [], $orders = []);
 
     /**
      * Find address.

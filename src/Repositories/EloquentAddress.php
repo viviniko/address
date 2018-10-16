@@ -8,11 +8,6 @@ use Viviniko\Repository\EloquentRepository;
 
 class EloquentAddress extends EloquentRepository implements AddressRepository
 {
-    protected $searchRules = [
-        'addressable_type',
-        'addressable_id',
-    ];
-
     public function __construct()
     {
         parent::__construct(Config::get('address.address'));
@@ -26,7 +21,7 @@ class EloquentAddress extends EloquentRepository implements AddressRepository
      */
     public function lists($addressable)
     {
-        return $this->createModel()->newQuery()->where(
+        return $this->newQuery()->where(
             $addressable instanceof Model ? [
                 'addressable_type' => $addressable->getMorphClass(),
                 'addressable_id' => $addressable->id,
