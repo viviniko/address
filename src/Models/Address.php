@@ -9,7 +9,7 @@ class Address extends Model
     protected $tableConfigKey = 'address.addresses_table';
 
     protected $fillable = [
-        'addressable_type', 'addressable_id', 'firstname', 'lastname',
+        'addressable_type', 'addressable_id', 'first_name', 'last_name',
         'street1', 'street2', 'city_name', 'state', 'state_name', 'country', 'country_name', 'postal_code', 'phone',
         'type', 'is_default'
     ];
