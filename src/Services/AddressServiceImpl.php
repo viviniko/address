@@ -3,7 +3,7 @@
 namespace Viviniko\Address\Services;
 
 use Viviniko\Address\Models\Address;
-use Viviniko\Address\Repositories\Address\AddressRepository;
+use Viviniko\Address\Repositories\AddressRepository;
 use Viviniko\Agent\Facades\Agent;
 use Viviniko\Country\Services\CountryService;
 use Viviniko\Support\Database\Eloquent\Model;
@@ -16,14 +16,14 @@ class AddressServiceImpl implements AddressService
     protected $countryService;
 
     /**
-     * @var \Viviniko\Address\Repositories\Address\AddressRepository
+     * @var \Viviniko\Address\Repositories\AddressRepository
      */
     protected $addresses;
 
     /**
      * AddressService constructor.
      * @param \Viviniko\Country\Services\CountryService $countryService
-     * @param \Viviniko\Address\Repositories\Address\AddressRepository $addresses
+     * @param \Viviniko\Address\Repositories\AddressRepository $addresses
      */
     public function __construct(CountryService $countryService, AddressRepository $addresses)
     {
