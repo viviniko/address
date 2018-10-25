@@ -21,7 +21,7 @@ class EloquentAddress extends EloquentRepository implements AddressRepository
      */
     public function lists($addressable)
     {
-        return $this->newQuery()->where(
+        return $this->createQuery()->where(
             $addressable instanceof Model ? [
                 'addressable_type' => $addressable->getMorphClass(),
                 'addressable_id' => $addressable->id,
