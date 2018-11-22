@@ -21,4 +21,19 @@ class Address extends Model
     {
         return $this->morphTo();
     }
+
+    public function getReadableAttribute()
+    {
+        $splices = collect([]);
+        $splices->push($this->street1);
+        $splices->push($this->street2);
+        $splices->push($this->city_name);
+        $splices->push($this->state_name);
+        $splices->push($this->country_name);
+        $splices->push($this->postal_code);
+
+        return $splices->filter(function ($item) {
+            return !empty($item);
+        })->implode(', ');
+    }
 }
